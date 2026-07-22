@@ -1,0 +1,254 @@
+@import "tailwindcss";
+
+:root {
+  /* === IdeAcT Brand Palette — sampled directly from the logo artwork === */
+  --background: #f7f8fa;          /* soft warm off-white — premium, not clinical */
+  --surface: #ffffff;
+  --surface-hover: #eef1f5;
+  --surface-sunken: #eef2f7;      /* for admin cards / table zebra rows */
+
+  --primary: #135492;             /* Navy Blue — the "Ac" letters in the logo */
+  --primary-hover: #0e3f6f;
+  --primary-tint: #e8f0f9;        /* light navy wash for badges / hover bg */
+
+  --secondary: #39a93d;           /* Green — the "Id" letters in the logo */
+  --secondary-hover: #2c8830;
+  --secondary-tint: #eaf7eb;
+
+  --accent-gold: #ffcf00;         /* Yellow — the lightbulb */
+  --accent-crimson: #840d2c;       /* Deep maroon — the tagline */
+  --accent-red: #e74528;           /* Warm red — one of the light rays */
+  --accent-orange: #f37b28;        /* Orange ray */
+  --accent-cyan: #24aada;          /* Cyan ray */
+  --accent-purple: #6a3d8d;        /* Purple ray */
+  --accent-charcoal: #363332;      /* Dark base of the bulb */
+
+  --text-primary: #1a2230;        /* near-black navy — not harsh pure black */
+  --text-secondary: #566175;       /* muted slate */
+  --text-muted: #8a93a3;
+
+  --border: #e2e6ee;
+  --border-strong: #c7cedd;
+  --border-glow: rgba(19, 84, 146, 0.18);
+
+  /* Status colors kept distinct from brand accents so they read as system feedback */
+  --success: #39a93d;
+  --warning: #f37b28;
+  --danger: #d0342c;
+  --info: #24aada;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-tint: var(--primary-tint);
+  --color-secondary: var(--secondary);
+  --color-secondary-hover: var(--secondary-hover);
+  --color-secondary-tint: var(--secondary-tint);
+  --color-accent-gold: var(--accent-gold);
+  --color-accent-yellow: var(--accent-gold);
+  --color-accent-green: var(--secondary);
+  --color-accent-crimson: var(--accent-crimson);
+  --color-accent-red: var(--accent-red);
+  --color-accent-orange: var(--accent-orange);
+  --color-accent-cyan: var(--accent-cyan);
+  --color-accent-purple: var(--accent-purple);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-border: var(--border);
+  --color-border-glow: var(--border-glow);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-info: var(--info);
+  --font-sans: "Inter", "Outfit", "Manrope", ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: -0.02em;
+}
+
+/* ===========================
+   Gradients
+=========================== */
+
+/* Brand gradient: Navy → Green (logo's "Ac" → "Id") */
+.text-glow-gradient {
+  background: linear-gradient(135deg, #135492 0%, #24aada 50%, #39a93d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Accent gradient: Gold → Crimson (lightbulb + tagline) */
+.text-accent-gradient {
+  background: linear-gradient(135deg, #ffcf00 0%, #840d2c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Bar / badge / button gradient: Navy → Green */
+.bg-gradient-teal-blue {
+  background: linear-gradient(135deg, #135492 0%, #39a93d 100%);
+}
+
+/* Warm CTA gradient: Gold → Crimson, for high-emphasis actions */
+.bg-gradient-gold-crimson {
+  background: linear-gradient(135deg, #ffcf00 0%, #840d2c 100%);
+}
+
+/* Subtle background radial glow */
+.bg-gradient-glow {
+  background: radial-gradient(circle at 50% 50%, rgba(19, 84, 146, 0.07) 0%, rgba(247, 248, 250, 0) 70%);
+}
+
+/* ===========================
+   Glassmorphism
+=========================== */
+.glass {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(226, 230, 238, 0.9);
+  box-shadow: 0 2px 8px rgba(26, 34, 48, 0.06);
+}
+
+.glass-hover:hover {
+  background: rgba(255, 255, 255, 0.97);
+  border-color: rgba(19, 84, 146, 0.3);
+  box-shadow: 0 6px 24px rgba(19, 84, 146, 0.1);
+}
+
+/* ===========================
+   Eyebrow Label
+=========================== */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 1.5rem;
+  height: 2px;
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  border-radius: 2px;
+}
+
+/* ===========================
+   Admin surface helpers (light mode)
+=========================== */
+.admin-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px rgba(26, 34, 48, 0.05);
+}
+
+.admin-sidebar {
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+}
+
+.admin-nav-item-active {
+  background: var(--primary-tint);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.admin-nav-item {
+  color: var(--text-secondary);
+}
+
+.admin-nav-item:hover {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+
+/* ===========================
+   Premium Section Dividers
+=========================== */
+.section-border {
+  border-color: var(--border);
+}
+
+/* ===========================
+   Scrollbar
+=========================== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* ===========================
+   Animations
+=========================== */
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.25; }
+  50%       { opacity: 0.5;  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 5s infinite ease-in-out;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+.animate-float {
+  animation: float 5s infinite ease-in-out;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+.pause-on-hover:hover {
+  animation-play-state: paused;
+}
+
+/* ===========================
+   Scroll Reveal
+=========================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}

@@ -1,0 +1,25 @@
+# dependencies
+/node_modules
+
+# next.js build output
+/.next
+/out
+tsconfig.tsbuildinfo
+
+# env files (keep .env.local private if you push this to a public repo)
+.env*.local
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# editor
+.vscode/*
+!.vscode/extensions.json
+.idea
