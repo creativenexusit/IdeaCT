@@ -57,23 +57,86 @@ npm run dev
 ### Required environment variables (`.env.local`)
 
 ```dotenv
-DATABASE_URL=mongodb+srv://pharmacy:pharmacy@cluster0.cqpfr4j.mongodb.net/pharmacy?retryWrites=true&w=majority&appName=Cluster0
+# Demo/evaluation environment — DATABASE_URL is intentionally left blank so
+# the app runs in demo auth mode: log into /admin/login with the credentials
+# below instead of a real database-backed account. Fill in DATABASE_URL
+# (plus real SMTP/Cloudinary values) to switch to full production auth —
+# no code changes needed, the app detects this automatically.
 
-AUTH_SECRET=<random 32+ char string>
-BETTER_AUTH_SECRET=<same or another random string>
-BETTER_AUTH_URL=https://your-domain.com
-NEXT_PUBLIC_APP_URL=https://your-domain.com
+NODE_ENV=development
+NEXT_PUBLIC_APP_URL=http://localhost:3000
 
-CLOUDINARY_CLOUD_NAME=
-CLOUDINARY_API_KEY=
-CLOUDINARY_API_SECRET=
+# Leave blank for demo mode. Set to a real MongoDB connection string to
+# switch to production auth (Better Auth + live user accounts).
+DATABASE_URL=mongodb://pharmacy:pharmacy@ac-2b7wzhj-shard-00-00.cqpfr4j.mongodb.net:27017,ac-2b7wzhj-shard-00-01.cqpfr4j.mongodb.net:27017,ac-2b7wzhj-shard-00-02.cqpfr4j.mongodb.net:27017/pharmacy?ssl=true&replicaSet=atlas-13u7ep-shard-0&authSource=admin&appName=Cluster0
 
-SMTP_HOST=
+AUTH_SECRET=33bbeb19d6f9cbb4e6fb5d6c8e02c689c5f207fb63baca4928bc1cd3d6741a34
+BETTER_AUTH_SECRET=33bbeb19d6f9cbb4e6fb5d6c8e02c689c5f207fb63baca4928bc1cd3d6741a34
+BETTER_AUTH_URL=http://localhost:3000
+
+# Demo mode login — use these on /admin/login to access the admin panel
+# right now, without any database.
+DEMO_ADMIN_EMAIL=admin@ideact.com
+DEMO_ADMIN_PASSWORD=Demo@12345
+
+CLOUDINARY_CLOUD_NAME=dpapyi0gb
+CLOUDINARY_API_KEY=441861752631938
+CLOUDINARY_API_SECRET=AwxNRTheJ4TZfEvOsV1BSljbmPE
+
+# ── SMTP Email Configuration ────────────────────────────────────────────────
+# Fill these in to enable contact form email notifications + auto-replies.
+#
+# For Gmail: SMTP_HOST=smtp.gmail.com, SMTP_PORT=587
+#   - SMTP_USERNAME = your Gmail address
+#   - SMTP_PASSWORD = App Password (generate at myaccount.google.com/apppasswords)
+#
+# For Outlook/Hotmail: SMTP_HOST=smtp.office365.com, SMTP_PORT=587
+#
+# For custom domain (cPanel/Hostinger/etc): SMTP_HOST=mail.yourdomain.com, SMTP_PORT=587
+#
+SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
-SMTP_USERNAME=
-SMTP_PASSWORD=
-SMTP_FROM_NAME=IdeAcT
-SMTP_FROM_EMAIL=no-reply@your-domain.com
+SMTP_USERNAME=nazmulhasan00068@gmail.com
+SMTP_PASSWORD=pkepptgzoqyqytyk
+SMTP_FROM_NAME=IdeaCT Consultancy
+SMTP_FROM_EMAIL=nazmulhasan00068@gmail.com
+
+# Set to "true" ONLY when you want to force mock/demo data even with a live DB.
+# Leave blank (or remove) when DATABASE_URL is configured — otherwise POST/PUT/DELETE will fail.
+# FORCE_DEMO=true
+
+
+# 2. 📧 SMTP Email — Contact Form Notifications
+# How it works now in 
+
+# mailer.ts
+# :
+
+# Env Var	Purpose
+# SMTP_HOST	Mail server (e.g. smtp.gmail.com)
+# SMTP_PORT	Port — 587 (TLS) or 465 (SSL)
+# SMTP_USERNAME	Your email address
+# SMTP_PASSWORD	Email password or App Password
+# SMTP_FROM_NAME	Sender name shown to recipients
+# SMTP_FROM_EMAIL	Sender email address
+# When someone submits the contact form, two emails are sent:
+
+# Admin notification — sent to SMTP_FROM_EMAIL with full inquiry details
+# Auto-reply to submitter — professional HTML email confirming their message was received
+# To activate, fill in the values in 
+
+# .env.local
+# :
+
+# env
+# # Gmail example:
+# SMTP_HOST=smtp.gmail.com
+# SMTP_PORT=587
+# SMTP_USERNAME=your@gmail.com
+# SMTP_PASSWORD=xxxx xxxx xxxx xxxx   # Gmail App Password
+# SMTP_FROM_NAME=IdeaCT Consultancy
+# SMTP_FROM_EMAIL=your@gmail.com
+# For Gmail, generate an App Password at myaccount.google.com/apppasswords (requires 2FA enabled)
 ```
 
 > **Demo mode:** leave `DATABASE_URL` blank and the site runs entirely on
